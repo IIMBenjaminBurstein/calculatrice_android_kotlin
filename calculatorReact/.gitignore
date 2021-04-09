@@ -1,0 +1,3 @@
+node_modules/**/*
+#mac_os
+.Ds_Store
