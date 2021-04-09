@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private var zero: Boolean = false
     private  var point: Boolean = false
     private var previousPoint: Int = 0
+    private var previousSymbol: Float? = null
     companion object {
         private val INPUT_BUTTONS = listOf(
                 listOf("Ce", "C"),
@@ -149,6 +150,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onSymbolClicked(symbol: String) {
         this.symbol = symbol
+        previousSymbol = input
         previousInput = input
         input = null
     }
@@ -160,30 +162,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         updateDisplayContainer(when (symbol) {
-            "+" ->   input!! + previousInput!!
-            "-" -> previousInput!! - input!!
-            "*" ->  input!! * previousInput!!
+            "+" ->   input!! +  previousSymbol!!
+            "-" ->  previousSymbol!! - input!!
+            "*" ->  input!! *  previousSymbol!!
             "/" ->
-                if (previousInput == 0.0f || input == 0.0f){
+                if ( previousSymbol == 0.0f || input == 0.0f){
                     zero = true
                 } else{
-                   previousInput!! / input!!
+                    previousSymbol!! / input!!
                 }
             else -> "ERROR"
         })
         when (symbol) {
-            "+" -> input =  input!! + previousInput!!
-            "-" -> input = previousInput!! - input!!
-            "*" -> input = input!! * previousInput!!
+            "+" -> input =  input!! + previousSymbol!!
+            "-" -> input = previousSymbol!! - input!!
+            "*" -> input = input!! * previousSymbol!!
             "/" ->
-                if (previousInput == 0.0f || input == 0.0f){
+                if (previousSymbol == 0.0f || input == 0.0f){
                     input = input
                 } else{
-                    input =  previousInput!! / input!!
+                    input =  previousSymbol!! / input!!
                 }
         }
         previousInput = null
         symbol = null
+        previousSymbol = null
     }
 
 }
