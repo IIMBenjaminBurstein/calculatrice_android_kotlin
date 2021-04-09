@@ -130,7 +130,10 @@ _handleStringInput(str) {
           break;
       case 'CE' : 
           inputValue = 0;
-          this.state.inputValue = inputValue
+          this.setState({
+            inputValue: inputValue
+        })
+         
     }
   }
 }
