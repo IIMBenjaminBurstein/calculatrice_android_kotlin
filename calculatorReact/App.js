@@ -74,6 +74,7 @@ import React, {
   }
   _handleNumberInput(num) {
     if(typeof this.state.inputValue == 'string' ){
+      var lastNum = num;
       this.state.inputValue = 0;
       inputValue = (this.state.inputValue * 10) + num;
     }
@@ -130,10 +131,26 @@ _handleStringInput(str) {
           break;
       case 'CE' : 
           inputValue = 0;
+          this.state.previousInputValue = 0;
           this.setState({
             inputValue: inputValue
         })
-         
+        break;
+      case 'C' : 
+      if(!symbol){
+        inputValue = 0
+        this.setState({
+          inputValue: inputValue
+      })
+      }else{
+        this.setState({
+          selectedSymbol: str,
+          inputValue: 0
+      })
+     
+      }
+      
+
     }
   }
 }
