@@ -115,7 +115,7 @@ _handleStringInput(str) {
             }else if(symbol == '/' && inputValue == 0){
               this.setState({
                 previousInputValue: 0,
-                inputValue: "wsh tu divise par 0 toi?",
+                inputValue: "erreur",
                 selectedSymbol: null
             });
             break;
