@@ -2,6 +2,7 @@ import Style from './src/Style';
 import InputButton from './src/InputButton';
 
 const inputButtons = [
+  ['CE', 'C'],
   [1, 2, 3, '/'],
   [4, 5, 6, '*'],
   [7, 8, 9, '-'],
@@ -127,6 +128,9 @@ _handleStringInput(str) {
             });
           }
           break;
+      case 'CE' : 
+          inputValue = 0;
+          this.state.inputValue = inputValue
     }
   }
 }
