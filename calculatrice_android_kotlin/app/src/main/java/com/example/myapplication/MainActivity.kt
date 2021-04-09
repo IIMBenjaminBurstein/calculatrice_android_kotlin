@@ -21,18 +21,16 @@ class MainActivity : AppCompatActivity() {
     private var previousSymbol: Float? = null
     companion object {
         private val INPUT_BUTTONS = listOf(
-                listOf("Ce", "C"),
+                listOf("Ce",  "C","<-", ""),
                 listOf("1", "2", "3", "/"),
                 listOf("4", "5", "6", "*"),
                 listOf("7", "8", "9", "-"),
                 listOf("0", ".", "=", "+")
         )
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         addCells(findViewById(R.id.calculator_input_container_line1), 0)
         addCells(findViewById(R.id.calculator_input_container_line2), 1)
         addCells(findViewById(R.id.calculator_input_container_line3), 2)
@@ -81,6 +79,9 @@ class MainActivity : AppCompatActivity() {
             value == "C"->{
                 onCclicked()
             }
+            value == "<-" ->{
+                onDelClicked()
+            }
             value == "." -> {
                 onPointClicked()
             }
@@ -89,6 +90,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun onCclicked() {
+                previousInput = 0.0f
+                input = 0.0f
+                point = false
+                previousPoint = 0
+        updateDisplayContainer(input.toString())
+        }
+    private fun onDelClicked() {
         if(point == true){
             point = false
             input = previousInput

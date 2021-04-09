@@ -27,7 +27,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:weightSum="2" />
+            android:weightSum="3" />
 
         <LinearLayout
             android:id="@+id/calculator_input_container_line2"
