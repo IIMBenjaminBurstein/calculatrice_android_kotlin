@@ -101,6 +101,9 @@ _handleStringInput(str) {
       case '*':
       case '+':
       case '-':
+        if(typeof this.state.inputValue == 'string'){
+            this.state.inputValue =  0;
+        }
           this.setState({
               selectedSymbol: str,
               previousInputValue: this.state.inputValue,
@@ -108,6 +111,8 @@ _handleStringInput(str) {
           });
           break;
           case '=':
+    
+  
             let symbol = this.state.selectedSymbol,
                 inputValue = this.state.inputValue,
                 previousInputValue = this.state.previousInputValue;
