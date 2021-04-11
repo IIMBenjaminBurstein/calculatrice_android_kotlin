@@ -32,7 +32,8 @@ class Pokedex extends StatelessWidget {
  @override
  Widget build(BuildContext context) {
    return Query(
-       options: QueryOptions(document: gql('''
+       options: QueryOptions(
+         document: gql('''
 query MyQuery {
  queryPokemon {
    id
@@ -43,9 +44,9 @@ query MyQuery {
        builder: (QueryResult result,
            {Refetch? refetch, FetchMore? fetchMore}) {
          if (result.hasException) {
-           return Text('Error');
+           return Text('Erreur');
          } else if (result.isLoading) {
-           return Text('Loading');
+           return Text('Loadinnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng');
          }
 
          List pokemons = (result.data as Map)['queryPokemon'] as List;
@@ -68,6 +69,7 @@ query MyQuery {
                );
              },
              itemCount: pokemons.length,
+             
            ),
          );
        });
