@@ -37,8 +37,8 @@ import React, {
     previousInputValue: 0,
     inputValue: 0,
     selectedSymbol: null,
-    point: false,
-    previousPoint : 0
+    NumberPoint: false, //point du nombre à virgule
+    NbAfterPoint : 0 //Nombre de chiffre après le point
   }
 }
   _renderInputButtons() {
@@ -78,11 +78,11 @@ import React, {
       this.state.inputValue = 0;
       inputValue = (this.state.inputValue * 10) + num;
     }
-    if(this.state.point == true) {
-      let x = this.state.previousPoint + 1 ;
-      let dividande = Math.pow(10, x);
-      var inputValue = (num/dividande) + this.state.inputValue ;
-      this.state.previousPoint += 1;
+    if(this.state.NumberPoint == true) {
+      let puissance = this.state.NbAfterPoint + 1 ;
+      let diviseur = Math.pow(10, puissance);
+      var inputValue = (num/diviseur) + this.state.inputValue ;
+      this.state.NbAfterPoint += 1;
     }else{
       inputValue = (this.state.inputValue * 10) + num;
     }
@@ -91,11 +91,11 @@ import React, {
     })
 }
 _handlePointInput(){
-  this.state.point = true;
+  this.state.NumberPoint = true;
 }
 _handleStringInput(str) {
-  this.state.point = false;
-  this.state.previousPoint = 0;
+  this.state.NumberPoint = false;
+  this.state.NbAfterPoint = 0;
   switch (str) {
       case '/':
       case '*':

@@ -16,9 +16,9 @@ class MainActivity : AppCompatActivity() {
     private var previousInput: Float? = null
     private var symbol: String? = null
     private var zero: Boolean = false
-    private  var point: Boolean = false
-    private var previousPoint: Int = 0
-    private var previousSymbol: Float? = null
+    private  var NumberPoint: Boolean = false
+    private var NbAfterPoint: Int = 0
+    private var NbBeforeSymbol: Float? = null
     companion object {
         private val INPUT_BUTTONS = listOf(
                 listOf("Ce",  "C","<-", ""),
@@ -59,28 +59,28 @@ class MainActivity : AppCompatActivity() {
     private fun onCellClicked(value: String) {
         when {
             value.isNum() -> {
-                if(point == true){
+                if(NumberPoint == true){
                     input = (value.toFloat() / 10) + previousInput!!
                     updateDisplayContainer(input.toString())
-                    point = false
-                    previousPoint = 1
-                }else if(previousPoint != 0) {
+                    NumberPoint = false
+                    NbAfterPoint = 1
+                }else if(NbAfterPoint != 0) {
                     input = value.toFloat()
                     updateDisplayContainer( value!!)
-                    previousPoint!! + 1
+                    NbAfterPoint!! + 1
                 }else{
                 input = value.toFloat()
                 updateDisplayContainer(input.toString())
                 }
             }
             value == "Ce"->{
-                onCeClicked()
+                onCeButtonClicked()
             }
             value == "C"->{
-                onCclicked()
+                onCButtonClicked()
             }
             value == "<-" ->{
-                onDelClicked()
+                onArrowButtonClicked()
             }
             value == "." -> {
                 onPointClicked()
@@ -89,41 +89,41 @@ class MainActivity : AppCompatActivity() {
             listOf("/", "*", "-", "+").contains(value) -> onSymbolClicked(value)
         }
     }
-    private fun onCclicked() {
+    private fun onCButtonClicked() {
                 previousInput = 0.0f
                 input = 0.0f
-                point = false
-                previousPoint = 0
+                NumberPoint = false
+                NbAfterPoint = 0
         updateDisplayContainer(input.toString())
         }
-    private fun onDelClicked() {
-        if(point == true){
-            point = false
+    private fun onArrowButtonClicked() {
+        if(NumberPoint == true){
+            NumberPoint = false
             input = previousInput
             previousInput = null
             updateDisplayContainer(input.toString())
-        }else if (symbol != null && input != null && previousPoint == 0 ){
+        }else if (symbol != null && input != null && NbAfterPoint == 0 ){
         input = null
         updateDisplayContainer("symbole")
-    }else if(symbol != null && input != null && previousPoint == 0){
-        }else if(symbol != null && input == null  && previousPoint == 0 ){
+    }else if(symbol != null && input != null && NbAfterPoint == 0){
+        }else if(symbol != null && input == null  && NbAfterPoint == 0 ){
         symbol = null
         input = previousInput
         previousInput = null
         updateDisplayContainer(input.toString())
-        }else if(symbol == null && input != null && previousPoint == 0){
+        }else if(symbol == null && input != null && NbAfterPoint == 0){
             input = null
             symbol = null
             previousInput = null
             updateDisplayContainer("")
-        }else if(symbol == null && input != null && previousPoint != 0){
-          if(previousPoint ==  1 ){
-                   previousPoint!! - 1
+        }else if(symbol == null && input != null && NbAfterPoint != 0){
+          if(NbAfterPoint ==  1 ){
+                   NbAfterPoint!! - 1
                    input = null
-                   point = true
+                   NumberPoint = true
               updateDisplayContainer(".")
                }else{
-               previousPoint!! - 1
+               NbAfterPoint!! - 1
                input = previousInput
                previousInput = null
                     updateDisplayContainer(input.toString())
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
            }
         }
 
-    private fun onCeClicked(){
+    private fun onCeButtonClicked(){
         input = null
         previousInput = null
         symbol = null
@@ -148,7 +148,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun onPointClicked(){
         updateDisplayContainer(".")
-        point = true
+        NumberPoint = true
         previousInput = input
         input = null
     }
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onSymbolClicked(symbol: String) {
         this.symbol = symbol
-        previousSymbol = input
+        NbBeforeSymbol = input
         previousInput = input
         input = null
     }
@@ -170,31 +170,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         updateDisplayContainer(when (symbol) {
-            "+" ->   input!! +  previousSymbol!!
-            "-" ->  previousSymbol!! - input!!
-            "*" ->  input!! *  previousSymbol!!
+            "+" ->   input!! +  NbBeforeSymbol!!
+            "-" ->  NbBeforeSymbol!! - input!!
+            "*" ->  input!! *  NbBeforeSymbol!!
             "/" ->
-                if ( previousSymbol == 0.0f || input == 0.0f){
+                if ( NbBeforeSymbol == 0.0f || input == 0.0f){
                     zero = true
                 } else{
-                    previousSymbol!! / input!!
+                    NbBeforeSymbol!! / input!!
                 }
             else -> "ERROR"
         })
         when (symbol) {
-            "+" -> input =  input!! + previousSymbol!!
-            "-" -> input = previousSymbol!! - input!!
-            "*" -> input = input!! * previousSymbol!!
+            "+" -> input =  input!! + NbBeforeSymbol!!
+            "-" -> input = NbBeforeSymbol!! - input!!
+            "*" -> input = input!! * NbBeforeSymbol!!
             "/" ->
-                if (previousSymbol == 0.0f || input == 0.0f){
+                if (NbBeforeSymbol == 0.0f || input == 0.0f){
                     input = input
                 } else{
-                    input =  previousSymbol!! / input!!
+                    input =  NbBeforeSymbol!! / input!!
                 }
         }
         previousInput = null
         symbol = null
-        previousSymbol = null
+        NbBeforeSymbol = null
     }
 
 }
